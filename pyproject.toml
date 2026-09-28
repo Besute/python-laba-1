@@ -58,5 +58,8 @@ force-single-line=true
 lines-between-types = 1
 no-sections = false
 
+[tool.poetry.scripts]
+test = "pytest:console_main"
+
 
 
