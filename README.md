@@ -5,7 +5,7 @@
 1) python -m toolkit calc "YOUR EXPRESSION" - runs calculator that can calculate any expression you pass.
 However, if there is/are mistake(s), the calculator will tell you
 2) python -m toolkit convert VALUE --from MEASURE --to MEASURE - runs converter from one measure
-to another. There are several converts: KG, G (mass); MM, CM, M, KM (length);
+to another. There are several converts: KG, G (mass); MM, CM, M, KM (length); !!! All measures should be in lowercase
 F, C, K (temperature)
 3) python -m toolkit setprecision VALUE - set precision of decimal
 4) python -m toolkit --help - run to see helpful guide with calculator
