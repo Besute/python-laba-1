@@ -11,4 +11,7 @@ F, C, K (temperature) !!! All measures should be in lowercase
 4) python -m toolkit --help - run to see helpful guide with calculator
 
 ### Setup
-To set your calculator you need to install Poetry enviroment in your python compilator
+1) Use poetry enviroment
+2) Run poetry install and wait until everything is ready
+3) Run poetry run tests to see everything is OK
+4) Have fun using calculator :)
