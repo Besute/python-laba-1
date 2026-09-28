@@ -34,6 +34,6 @@ def save_history(data, path):
     path.parent.mkdir(parents=True, exist_ok=True)
     current_data.append(data)
     path.write_text(
-        json.dumps(current_data[::-1], indent=2, ensure_ascii=False) + "\n",
+        json.dumps(current_data[::-1], indent=1) + "\n",
         encoding="utf-8",
     )
