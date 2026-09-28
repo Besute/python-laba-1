@@ -25,11 +25,11 @@ def test_2():
 
 
 def test_3():
-    assert convert(1500, "g", "kg") == Decimal(1.5)
+    assert convert(1500, "g", "kg") == Decimal("1.5")
 
 
 def test_4():
-    assert convert(Decimal(3.5555), "kg", "g") == Decimal(3555.5)
+    assert convert(Decimal("3.5555"), "kg", "g") == Decimal("3555.5")
 
 
 def test_5():
@@ -38,7 +38,7 @@ def test_5():
 
 
 def test_6():
-    assert convert(0, "c", "k") == Decimal(273) + Decimal(0.15)
+    assert convert(0, "c", "k") == Decimal(273) + Decimal("0.15")
 
 
 def test_7():

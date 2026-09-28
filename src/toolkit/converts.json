@@ -21,28 +21,38 @@
   },
   "c": {
     "k": {
-      "mult": 1,
-      "offset": 273.15
+      "chisl": 1,
+      "znam": 1,
+      "inside_offset": 273.15,
+      "offset": 0
     },
     "f": {
-      "mult": 1.8,
+      "chisl": 18,
+      "znam": 10,
+      "inside_offset": 0,
       "offset": 32
     },
     "c": {
-      "mult": 1,
+      "chisl": 1,
+      "znam": 1,
+      "inside_offset": 0,
       "offset": 0
     }
   },
   "f": {
     "c": {
-      "mult": 0.55555555555555555555555555555556,
-      "offset": -17.777777777777777777777777777778
+      "chisl": 5,
+      "znam": 9,
+      "inside_offset": -32,
+      "offset": 0
     }
   },
   "k": {
     "c": {
-      "mult": 1,
-      "offset": -273.15
+      "chisl": 1,
+      "znam": 1,
+      "inside_offset": -273.15,
+      "offset": 0
     }
   }
 }

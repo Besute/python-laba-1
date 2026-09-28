@@ -31,8 +31,12 @@ def execute_mass(val, from_, to_):
 
 
 def execute_temper(val, from_, to_):
-    convert_to_c = Decimal(convers[from_]["c"]["mult"]) * val + Decimal(convers[from_]["c"]["offset"])
-    convert_to_goal = Decimal(convers["c"][to_]["mult"]) * convert_to_c + Decimal(convers["c"][to_]["offset"])
+    convert_to_c = (Decimal(str(convers[from_]["c"]["inside_offset"])) + Decimal(str(val))) * Decimal(
+        convers[from_]["c"]["chisl"]
+    ) / Decimal(convers[from_]["c"]["znam"]) + Decimal(str(convers[from_]["c"]["offset"]))
+    convert_to_goal = (Decimal(str(convers["c"][to_]["inside_offset"])) + convert_to_c) * Decimal(
+        convers["c"][to_]["chisl"]
+    ) / Decimal(convers["c"][to_]["znam"]) + Decimal(str(convers["c"][to_]["offset"]))
     return Decimal(convert_to_goal)
 
 
