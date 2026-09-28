@@ -12,6 +12,6 @@ F, C, K (temperature) !!! All measures should be in lowercase
 
 ### Setup
 1) Use poetry enviroment
-2) Run poetry install and wait until everything is ready
-3) Run poetry run tests to see everything is OK
+2) Run "poetry install" and wait until everything is ready
+3) Run "poetry run tests" to see everything is OK
 4) Have fun using calculator :)
