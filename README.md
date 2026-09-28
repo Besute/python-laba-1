@@ -9,3 +9,6 @@ to another. There are several converts: KG, G (mass); MM, CM, M, KM (length);
 F, C, K (temperature) !!! All measures should be in lowercase
 3) python -m toolkit setprecision VALUE - set precision of decimal
 4) python -m toolkit --help - run to see helpful guide with calculator
+
+### Setup
+To set your calculator you need to install Poetry enviroment in your python compilator
