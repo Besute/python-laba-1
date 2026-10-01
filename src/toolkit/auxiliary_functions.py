@@ -1,6 +1,6 @@
 import json
 
-from constants import OPERANDS
+from .constants import OPERANDS
 
 
 def load_json(JSON_FILE):
