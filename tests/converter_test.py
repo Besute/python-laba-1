@@ -1,12 +1,9 @@
 from decimal import Decimal
-from decimal import getcontext
 
 import pytest
 
 from toolkit.converter import convert
 from toolkit.errors import InvalidValueError
-
-print(getcontext())
 
 
 def test_1():
