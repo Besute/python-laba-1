@@ -4,13 +4,13 @@ from pathlib import Path
 
 import pytest
 
-from toolkit.auxiliary_functions import load_json
+from toolkit.auxiliary_functions import load_data
 from toolkit.converter import convert
 from toolkit.errors import InvalidValueError
 
 JSON_FILE = Path(__file__).parent.parent / "src" / "toolkit" / "calculator_config.json"
 
-CALC_CONFIG = load_json(JSON_FILE)
+CALC_CONFIG = load_data(JSON_FILE)
 PRECISION = CALC_CONFIG["precision"]
 getcontext().prec = PRECISION
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "toolkit"
-version = "1.0.1"
+version = "1.0.2"
 packages = [{ include = "toolkit", from = "src" }]
 include = [
     { path = "src/toolkit/*.json", format = ["sdist", "wheel"] }

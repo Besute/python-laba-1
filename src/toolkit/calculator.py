@@ -5,7 +5,8 @@ from pathlib import Path
 
 from .auxiliary_functions import is_int
 from .auxiliary_functions import is_oper
-from .auxiliary_functions import load_json
+from .auxiliary_functions import load_data
+from .constants import HAHAHA_CONST
 from .errors import DivisionByZeroError
 from .errors import InvalidExpressionError
 from .errors import InvalidValueError
@@ -13,11 +14,8 @@ from .tokenization import tokenize_expression
 from .validation import validation
 
 JSON_FILE = Path(__file__).parent / "calculator_config.json"
-
-CALC_CONFIG = load_json(JSON_FILE)
+CALC_CONFIG = load_data(JSON_FILE)
 PRECISION = CALC_CONFIG["precision"]
-
-HAHAHA_CONST = 998244353
 
 
 def make_operation(first, second, op):
