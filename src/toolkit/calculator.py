@@ -57,6 +57,9 @@ def make_unar(first, op):
 
 
 def execute(expr):
+    """
+    Counts final expression
+    """
     stack = []
     for i in range(len(expr)):
         if expr[i] in "?!":

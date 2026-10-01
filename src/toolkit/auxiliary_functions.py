@@ -4,7 +4,9 @@ from .constants import OPERANDS
 
 
 def save_data(data, path):
-    """Creates new file and writes data to it"""
+    """
+    Creates new file and writes data to it
+    """
     with open(path, "w") as file:
         json.dump(data, file, indent=2)
 
@@ -23,7 +25,9 @@ def load_data(path):
 
 
 def save_history(data, path):
-    """Loads previous data and saves it with new one"""
+    """
+    Loads previous data and saves it with new one
+    """
     current_data = []
     if path.is_file():
         current_data = load_data(path)

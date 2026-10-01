@@ -15,6 +15,10 @@ def get_operation_priority(op):
 
 
 def separate_nums_from_opers(expression):
+    """
+    Makes array from expression with custom operands (You can check custom opers in constants.py).
+    Example: '+11 + -2' -> ['?', '11', '+', '!', '2']
+    """
     final_expr = []
     i = 0
     was_operand = True
@@ -47,6 +51,9 @@ def separate_nums_from_opers(expression):
 
 
 def make_expression_queue(expression):
+    """
+    Makes correct polish queue
+    """
     queue = ["("]
     final_expr = []
     for i in range(len(expression)):
