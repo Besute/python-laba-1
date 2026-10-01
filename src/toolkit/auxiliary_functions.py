@@ -1,7 +1,6 @@
 import json
 
-OPERANDS = "+-*/()!?№%"  # "!" - IS UNAR MINUS (-5), "?" - IS UNAR PLUS (+5), № - IS "//"
-REAL_OPERANDS = "+-*/()%"
+from constants import OPERANDS
 
 
 def load_json(JSON_FILE):

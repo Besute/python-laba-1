@@ -1,4 +1,4 @@
-from .auxiliary_functions import REAL_OPERANDS
+from .constants import REAL_OPERANDS
 from .errors import InvalidExpressionError
 
 
