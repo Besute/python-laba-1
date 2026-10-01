@@ -64,4 +64,4 @@ def evaluate_from(val, from_, to_):
 
 def convert(val, from_, to_):
     getcontext().prec = PRECISION
-    return evaluate_from(val, from_, to_)
+    return evaluate_from(Decimal(str(val)), from_, to_)

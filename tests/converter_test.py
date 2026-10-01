@@ -1,18 +1,12 @@
 from decimal import Decimal
 from decimal import getcontext
-from pathlib import Path
 
 import pytest
 
-from toolkit.auxiliary_functions import load_data
 from toolkit.converter import convert
 from toolkit.errors import InvalidValueError
 
-JSON_FILE = Path(__file__).parent.parent / "src" / "toolkit" / "calculator_config.json"
-
-CALC_CONFIG = load_data(JSON_FILE)
-PRECISION = CALC_CONFIG["precision"]
-getcontext().prec = PRECISION
+print(getcontext())
 
 
 def test_1():
@@ -85,3 +79,12 @@ def test_15():
 
 def test_16():
     assert convert(1000, "m", "km") == Decimal(1)
+
+
+def test_17():
+    assert convert(155555.5555, "g", "kg") == Decimal("1555555555") / Decimal("10000000")
+
+
+def test_18():
+    with pytest.raises(InvalidValueError):
+        convert(-4.4444444444444444444444444444444, "m", "kg")
