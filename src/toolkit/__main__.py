@@ -83,15 +83,15 @@ def main(argv=None):
 
     except InvalidExpressionError as error:
         print(f"Error: {error}", file=sys.stderr)
-        return 1
+        return 2
 
     except InvalidValueError as error:
         print(f"Error: {error}", file=sys.stderr)
-        return 1
+        return 2
 
     except DivisionByZeroError as error:
         print(f"Error: {error}", file=sys.stderr)
-        return 1
+        return 2
 
     return 0
 

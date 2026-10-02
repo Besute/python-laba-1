@@ -6,14 +6,14 @@ from decimal import Decimal
 
 def test_convert_success():
     result = subprocess.run(
-        [sys.executable, "-m", "toolkit", "convert", "1", "--from", "m", "--to", "cm"],
+        [sys.executable, "-m", "toolkit", "convert", "2", "--from", "m", "--to", "cm"],
         capture_output=True,
         text=True,
         check=False,
     )
 
     assert result.returncode == 0
-    assert result.stdout == "The 1m is 100cm\n"
+    assert result.stdout == "The 2m is 200cm\n"
     assert result.stderr == ""
 
 
@@ -38,19 +38,19 @@ def test_convert_below_absolute_zero():
         check=False,
     )
 
-    assert result.returncode == 1
+    assert result.returncode == 2
     assert "You have temperature below absolute zero\n" in result.stderr
 
 
 def test_convert_invalid_units():
     result = subprocess.run(
-        [sys.executable, "-m", "toolkit", "convert", "1", "--from", "adads", "--to", "VVV"],
+        [sys.executable, "-m", "toolkit", "convert", "2", "--from", "adads", "--to", "VVV"],
         capture_output=True,
         text=True,
         check=False,
     )
 
-    assert result.returncode == 1
+    assert result.returncode == 2
     assert "You can't convert adads to VVV\n" in result.stderr
 
 
