@@ -24,3 +24,5 @@ def validation_conv(num):
     for i in num:
         if i not in "0123456789.-+":
             raise InvalidValueError("You have error in your number")
+    if num[-1] in "-+" or len(num.split("+")) != 1:
+        raise InvalidValueError("You have error in your number")
