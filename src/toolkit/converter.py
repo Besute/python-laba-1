@@ -65,5 +65,5 @@ def evaluate_from(val, from_, to_):
 
 def convert(val, from_, to_):
     getcontext().prec = PRECISION
-    validation_conv(val)
-    return evaluate_from(Decimal(str(val)), from_, to_)
+    validation_conv(str(val).replace(",", "."))
+    return evaluate_from(Decimal(str(val).replace(",", ".")), from_, to_)
