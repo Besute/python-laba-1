@@ -1,119 +1,67 @@
-from toolkit.__main__ import main
-from toolkit.errors import InvalidValueError
+import subprocess
+import sys
+
+from decimal import Decimal
 
 
-def test_convert_success(capsys, monkeypatch):
-    monkeypatch.setattr(
-        "toolkit.__main__.convert",
-        lambda value, from_, to_: 100,
+def test_convert_success():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "convert", "1", "--from", "m", "--to", "cm"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    exit_code = main(
-        [
-            "convert",
-            "1",
-            "--from",
-            "m",
-            "--to",
-            "cm",
-        ]
+    assert result.returncode == 0
+    assert result.stdout == "The 1m is 100cm\n"
+    assert result.stderr == ""
+
+
+def test_convert_success_kelvin_to_celsius():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "convert", "273.15", "--from", "k", "--to", "c"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    captured = capsys.readouterr()
+    assert result.returncode == 0
+    assert result.stdout == f"The 273.15k is {Decimal(27315) / Decimal(100) - Decimal(27315) / Decimal(100)}c\n"
+    assert result.stderr == ""
 
-    assert exit_code == 0
-    assert captured.out == "The 1m is 100cm\n"
 
-
-def test_convert_success_2(capsys, monkeypatch):
-    monkeypatch.setattr(
-        "toolkit.__main__.convert",
-        lambda value, from_, to_: 0,
+def test_convert_below_absolute_zero():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "convert", "-600", "--from", "c", "--to", "k"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    exit_code = main(
-        [
-            "convert",
-            "273.15",
-            "--from",
-            "k",
-            "--to",
-            "c",
-        ]
+    assert result.returncode == 1
+    assert "You have temperature below absolute zero\n" in result.stderr
+
+
+def test_convert_invalid_units():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "convert", "1", "--from", "adads", "--to", "VVV"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    captured = capsys.readouterr()
-
-    assert exit_code == 0
-    assert captured.out == "The 273.15k is 0c\n"
+    assert result.returncode == 1
+    assert "You can't convert adads to VVV\n" in result.stderr
 
 
-def test_convert_unsuccess(capsys, monkeypatch):
-    def fake_convert(value, from_, to_):
-        raise InvalidValueError("You have temperature below absolute zero")
-
-    monkeypatch.setattr(
-        "toolkit.__main__.convert",
-        fake_convert,
+def test_convert_kg_to_g():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "convert", "5.5555", "--from", "kg", "--to", "g"],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
-    exit_code = main(
-        [
-            "convert",
-            "-600",
-            "--from",
-            "c",
-            "--to",
-            "k",
-        ]
-    )
-
-    assert exit_code == 1
-    assert "You have temperature below absolute zero"
-
-
-def test_convert_unsuccess_2(capsys, monkeypatch):
-    def fake_convert(value, from_, to_):
-        raise InvalidValueError(f"You can't convert {from_} to {to_}")
-
-    monkeypatch.setattr(
-        "toolkit.__main__.convert",
-        fake_convert,
-    )
-
-    exit_code = main(
-        [
-            "convert",
-            "-600",
-            "--from",
-            "c",
-            "--to",
-            "k",
-        ]
-    )
-
-    assert exit_code == 1
-    assert "You have temperature below absolute zero"
-
-
-def test_convert_success_3(capsys, monkeypatch):
-    monkeypatch.setattr(
-        "toolkit.__main__.convert",
-        lambda value, from_, to_: 5555.5,
-    )
-
-    exit_code = main(
-        [
-            "convert",
-            "5.5555",
-            "--from",
-            "kg",
-            "--to",
-            "g",
-        ]
-    )
-
-    captured = capsys.readouterr()
-
-    assert exit_code == 0
-    assert captured.out == "The 5.5555kg is 5555.5g\n"
+    assert result.returncode == 0
+    assert result.stdout == f"The 5.5555kg is {Decimal(55555) / Decimal(10000) * Decimal(1000)}g\n"
+    assert result.stderr == ""

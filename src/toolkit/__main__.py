@@ -42,7 +42,6 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == "calc":
-            print(Path(__file__).parent.parent)
             result = calculate(args.value)
             save_history(
                 {

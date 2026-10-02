@@ -22,5 +22,5 @@ def validation_calc(expression):
 
 def validation_conv(num):
     for i in num:
-        if i not in "0123456789.":
+        if i not in "0123456789.-+":
             raise InvalidValueError("You have error in your number")

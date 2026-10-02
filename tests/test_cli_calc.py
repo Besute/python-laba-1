@@ -1,79 +1,54 @@
-from toolkit.__main__ import main
-from toolkit.errors import DivisionByZeroError
-from toolkit.errors import InvalidExpressionError
+import subprocess
+import sys
 
 
-def test_calc_success(capsys, monkeypatch):
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        lambda expression: 4,
+def test_calc_success():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "calc", "+2+2"], capture_output=True, text=True, check=False
     )
-    res = main(["calc", "+2+ 2"])
 
-    assert res == 0
-    assert "Result of your expression: 4\n"
+    assert result.returncode == 0
+    assert result.stdout == "Result of your expression: 4\n"
 
 
-def test_calc_unsuccess(capsys, monkeypatch):
-    def fake_calculate(expression):
-        raise InvalidExpressionError("Probably you have error in your expression")
-
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        fake_calculate,
+def test_calc_invalid_expression():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "calc", "+2+ 2-"], capture_output=True, text=True, check=False
     )
-    res = main(["calc", "+2+ 2 -"])
 
-    assert res == 1
-    assert "Probably you have error in your expression"
+    assert result.returncode == 1
+    assert "Probably you have error in your expression\n" in result.stderr
 
 
-def test_calc_unsuccess_zero_div(capsys, monkeypatch):
-    def fake_calculate(expression):
-        raise DivisionByZeroError("You devised by zero")
-
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        fake_calculate,
+def test_calc_division_by_zero():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "calc", "2+2/(2-2)"], capture_output=True, text=True, check=False
     )
-    res = main(["calc", "2+2/(2-2)"])
 
-    assert res == 1
-    assert "You devised by zero"
+    assert result.returncode == 1
+    assert "You devised by zero" in result.stderr
 
 
-def test_calc_success_one(capsys, monkeypatch):
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        lambda expression: 15,
+def test_calc_single_number():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "calc", "15"], capture_output=True, text=True, check=False
     )
-    res = main(["calc", "15"])
 
-    assert res == 0
-    assert "Result of your expression: 15\n"
+    assert result.returncode == 0
+    assert result.stdout == "Result of your expression: 15\n"
 
 
-def test_success_validation_error(capsys, monkeypatch):
-    def fake_calculate(expression):
-        raise InvalidExpressionError("Your expression has unsupported symbols")
-
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        fake_calculate,
+def test_calc_unsupported_symbols():
+    result = subprocess.run(
+        [sys.executable, "-m", "toolkit", "calc", "15 * 13c"], capture_output=True, text=True, check=False
     )
-    res = main(["calc", "15 * 13c"])
-    assert res == 1
-    assert "Your expression has unsupported symbols"
+
+    assert result.returncode == 1
+    assert "Your expression has unsupported symbols\n" in result.stderr
 
 
-def test_success_validation_error_empty(capsys, monkeypatch):
-    def fake_calculate(expression):
-        raise InvalidExpressionError("Your expression is empty or doesn't make any sense")
+def test_calc_empty_expression():
+    result = subprocess.run([sys.executable, "-m", "toolkit", "calc", "*"], capture_output=True, text=True, check=False)
 
-    monkeypatch.setattr(
-        "toolkit.__main__.calculate",
-        fake_calculate,
-    )
-    res = main(["calc", "*"])
-    assert res == 1
-    assert "Your expression is empty or doesn't make any sense"
+    assert result.returncode == 1
+    assert "Your expression is empty or doesn't make any sense\n" in result.stderr
