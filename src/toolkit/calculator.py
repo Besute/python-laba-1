@@ -11,7 +11,7 @@ from .errors import DivisionByZeroError
 from .errors import InvalidExpressionError
 from .errors import InvalidValueError
 from .tokenization import tokenize_expression
-from .validation import validation
+from .validation import validation_calc
 
 JSON_FILE = Path(__file__).parent / "calculator_config.json"
 CALC_CONFIG = load_data(JSON_FILE)
@@ -83,7 +83,7 @@ def execute(expr):
 
 def calculate(expression):
     getcontext().prec = PRECISION
-    validation(expression)
+    validation_calc(expression)
     expr = tokenize_expression(expression)
     res = execute(expr)
     return decimal.Decimal(res)

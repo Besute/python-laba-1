@@ -1,8 +1,9 @@
 from .constants import REAL_OPERANDS
 from .errors import InvalidExpressionError
+from .errors import InvalidValueError
 
 
-def validation(expression):
+def validation_calc(expression):
     empty_expression = True
     correct_expression = True
     for i in "0123456789":
@@ -17,3 +18,9 @@ def validation(expression):
         raise InvalidExpressionError("Your expression has unsupported symbols")
     if empty_expression:
         raise InvalidExpressionError("Your expression is empty or doesn't make any sense")
+
+
+def validation_conv(num):
+    for i in num:
+        if i not in "0123456789":
+            raise InvalidValueError("You have error in your number")

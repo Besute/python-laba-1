@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .auxiliary_functions import load_data
 from .errors import InvalidValueError
+from .validation import validation_conv
 
 JSON_FILE = Path(__file__).parent / "converts.json"
 JSON_FILE_2 = Path(__file__).parent / "calculator_config.json"
@@ -64,4 +65,5 @@ def evaluate_from(val, from_, to_):
 
 def convert(val, from_, to_):
     getcontext().prec = PRECISION
+    validation_conv(val)
     return evaluate_from(Decimal(str(val)), from_, to_)
